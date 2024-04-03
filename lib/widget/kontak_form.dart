@@ -39,79 +39,88 @@ class _FormKontakState extends State<FormKontak> {
 
   @override
   Widget build(BuildContext context) {
-    return Form(
-        key: _formKey,
-        child: Column(
-          children: [
-            Container(
-              margin: const EdgeInsets.all(10),
-              child: TextFormField(
-                decoration: const InputDecoration(
-                    labelText: "Nama", hintText: "Masukkan Nama"),
-                controller: _namaController,
+    return SingleChildScrollView(
+      child: Form(
+          key: _formKey,
+          child: Column(
+            children: [
+              Container(
+                margin: const EdgeInsets.all(10),
+                child: TextFormField(
+                  decoration: const InputDecoration(
+                      labelText: "Nama", hintText: "Masukkan Nama"),
+                  controller: _namaController,
+                ),
               ),
-            ),
-            Container(
-              margin: const EdgeInsets.all(10),
-              child: TextFormField(
-                decoration: const InputDecoration(
-                    labelText: "Email", hintText: "Masukkan Email"),
-                controller: _emailController,
+              Container(
+                margin: const EdgeInsets.all(10),
+                child: TextFormField(
+                  decoration: const InputDecoration(
+                      labelText: "Email", hintText: "Masukkan Email"),
+                  controller: _emailController,
+                ),
               ),
-            ),
-            Container(
-              margin: const EdgeInsets.all(10),
-              child: TextFormField(
-                decoration: const InputDecoration(
-                    labelText: "Alamat", hintText: "Masukkan Alamat"),
-                controller: _alamatController,
+              Container(
+                margin: const EdgeInsets.all(10),
+                child: TextFormField(
+                  decoration: const InputDecoration(
+                      labelText: "Alamat", hintText: "Masukkan Alamat"),
+                  controller: _alamatController,
+                ),
               ),
-            ),
-            Container(
-              margin: const EdgeInsets.all(10),
-              child: TextFormField(
-                decoration: const InputDecoration(
-                    labelText: "No Telepon", hintText: "Masukkan No Telepon"),
-                controller: _notelpController,
+              Container(
+                margin: const EdgeInsets.all(10),
+                child: TextFormField(
+                  decoration: const InputDecoration(
+                      labelText: "No Telepon", hintText: "Masukkan No Telepon"),
+                  controller: _notelpController,
+                ),
               ),
-            ),
-            const SizedBox(
-              height: 100,
-            ),
-            _image == null
-                ? const Text("No Image Selected")
-                : Image.file(_image!),
-            ElevatedButton(
-                onPressed: getImage, child: const Text("Pilih Gambar")),
-            Container(
-              margin: const EdgeInsets.all(10),
-              child: ElevatedButton(
-                onPressed: () async {
-                  if (_formKey.currentState!.validate()) {
-                    _formKey.currentState!.save();
-                    var result = await KontakController().addPerson(
-                        Kontak(
-                            nama: _namaController.text,
-                            email: _emailController.text,
-                            alamat: _alamatController.text,
-                            notelp: _notelpController.text,
-                            foto: _image!.path),
-                        _image);
-                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                        content: Text(
-                      result['message'],
-                    )));
-                    Navigator.pushAndRemoveUntil(
-                      context,
-                      MaterialPageRoute(builder: (context) => const HomeView()),
-                      (route) => false,
-                    );
-                  }
-                },
-                child: const Text("Simpan"),
+              const SizedBox(
+                height: 50,
               ),
-            ),
-          ],
-        ));
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: _image == null
+                    ? const Text("No Image Selected")
+                    : Image.file(_image!),
+              ),
+              const SizedBox(
+                height: 50,
+              ),
+              ElevatedButton(
+                  onPressed: getImage, child: const Text("Pilih Gambar")),
+              Container(
+                margin: const EdgeInsets.all(10),
+                child: ElevatedButton(
+                  onPressed: () async {
+                    if (_formKey.currentState!.validate()) {
+                      _formKey.currentState!.save();
+                      var result = await KontakController().addPerson(
+                          Kontak(
+                              nama: _namaController.text,
+                              email: _emailController.text,
+                              alamat: _alamatController.text,
+                              notelp: _notelpController.text,
+                              foto: _image!.path),
+                          _image);
+                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                          content: Text(
+                        result['message'],
+                      )));
+                      Navigator.pushAndRemoveUntil(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const HomeView()),
+                        (route) => false,
+                      );
+                    }
+                  },
+                  child: const Text("Simpan"),
+                ),
+              ),
+            ],
+          )),
+    );
   }
 }

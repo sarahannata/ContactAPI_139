@@ -17,9 +17,9 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(primarySwatch: Colors.brown),
       home: Scaffold(
         appBar: AppBar(
-          title: const Center(child: Text('Kontak Form')), // Judul AppBar
+          title: const Center(child: Text('Kontak Form')),
         ),
-        body: const HomeView(), // Widget FormKontak sebagai body
+        body: const HomeView(),
       ),
     );
   }
