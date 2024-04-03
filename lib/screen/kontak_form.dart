@@ -15,6 +15,19 @@ class _FormKontakState extends State<FormKontak> {
   File? _image;
   final _imagePicker = ImagePicker();
 
+  Future<void> getImage() async {
+    final XFile? pickedFile =
+        await _imagePicker.pickImage(source: ImageSource.gallery);
+
+    setState(() {
+      if (pickedFile != null) {
+        _image = File(pickedFile.path);
+      } else {
+        print("No Image Selected");
+      }
+    });
+  }
+
   final _formKey = GlobalKey<FormState>();
   final _namaController = TextEditingController();
   final _emailController = TextEditingController();
@@ -62,13 +75,11 @@ class _FormKontakState extends State<FormKontak> {
             const SizedBox(
               height: 100,
             ),
-            Container(
-              margin: const EdgeInsets.all(10),
-              child: ElevatedButton(
-                onPressed: () {},
-                child: const Text("Pilih Gambar"),
-              ),
-            ),
+            _image == null
+                ? const Text("No Image Selected")
+                : Image.file(_image!),
+            ElevatedButton(
+                onPressed: getImage, child: const Text("Pilih Gambar")),
             Container(
               margin: const EdgeInsets.all(10),
               child: ElevatedButton(
