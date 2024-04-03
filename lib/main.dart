@@ -1,3 +1,4 @@
+import 'package:data_kontak/screen/home_view.dart';
 import 'package:data_kontak/widget/kontak_form.dart';
 import 'package:flutter/material.dart';
 
@@ -16,9 +17,9 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(primarySwatch: Colors.brown),
       home: Scaffold(
         appBar: AppBar(
-          title: Center(child: Text('Kontak Form')), // Judul AppBar
+          title: const Center(child: Text('Kontak Form')), // Judul AppBar
         ),
-        body: FormKontak(), // Widget FormKontak sebagai body
+        body: const HomeView(), // Widget FormKontak sebagai body
       ),
     );
   }
